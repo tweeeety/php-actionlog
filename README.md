@@ -42,6 +42,10 @@ $al->put(
 ###結果
 こんな感じのjsonを出力します
 ```
+# ls
+aclog.login.2014-05-14
+
+# cat aclog.login.2014-05-14
 {"info":{"uid":"test","func":1,"func_detail":1,"rid":"10f3d8d9ae622c1be4a56153bf6700ea","pid":28760,"hn":"is1.paq.to","ts":"2014-05-14 16:33:54"},"val":{"entry":"1999-01-01 10:00:00"}}
 ```
 
