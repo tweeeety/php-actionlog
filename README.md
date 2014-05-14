@@ -48,6 +48,7 @@ $al->put(
 ##説明
 
 * config  
+
 `lib/ActionLog/Conf.php`もサンプルのconfigです。  
 どこにどんな形で定義してあっても良いのでこんな感じでインスタンス生成時に渡します
 ```php
@@ -55,6 +56,7 @@ $al = new ActionLog(Conf::$CONF);
 ```
 
 * ログ出しわけ  
+
 Conf::$Conf['setting']に設定した値に応じてログを出しわけします  
 
 Conf::$Conf['setting']のkeyが、putする際に第一引数で渡している'func'の値に対応します  
@@ -63,11 +65,13 @@ Conf::$Conf['setting']のkeyが、putする際に第一引数で渡している'
 `'func' => Conf::ACLOG_F_LOGIN,`を指定しているので  
 Conf::$Conf['setting']['1']の`array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'login')`になります
 
-この場合下記の情報を元にログファイルを出力します
->ログレベル：self::ACLOG_LEVEL_FOWARD
->ファイル名：action.login.YYYYMMDD
+この場合下記の情報を元にログファイルを出力します  
 
-* ログレベル
+>ログレベル：self::ACLOG_LEVEL_FOWARD  
+>ファイル名：action.login.YYYYMMDD  
+
+* ログレベル  
+
 fluentdのin_tailプラグインのpathに該当ログへのシンボリックリンクを指定することが前提です
 詳細は[こちら(7.シンボリックリンクでの…トコ)](http://tweeeety.hateblo.jp/entry/20131213/1386899221)
 
