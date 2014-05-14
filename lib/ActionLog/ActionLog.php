@@ -78,13 +78,13 @@ class ActionLog {
 		// check setting 
 		if ( empty($info) || !is_array($info) || !array_key_exists( $info['func'], $_CONF['setting'] ) ) {
 			error_log( "[ERROR] invalid 'arguments' or 'configuration'", 4 );
-			exit;
+			return false;
 		}
 		
 		// check log path
 		if ( !isset($_CONF['logPath']) || !preg_match('/^\/.+/', $_CONF['logPath']) ) {
 			error_log( "[ERROR] invalid 'logPath'", 4 );
-			exit;
+			return false;
 		}
 		$_CONF['logPath'] = rtrim($_CONF['logPath'], '/') . '/';
 		
@@ -93,7 +93,7 @@ class ActionLog {
 			$level = $_CONF['setting'][$info['func']]['lv'];
 		}
 		if ( $level == $this->ACLOG_LEVEL_IGNORE ) {
-			return;
+			return false;
 		}
 		
 		// file name
@@ -119,22 +119,6 @@ class ActionLog {
 		$json = json_encode( array( 'info' => $info, 'val' => $val ) );
 		
 		// write
-		$retry = 0;
-		/*
-		while( 1 ){
-			if ( fwrite( $this->logfp[$fpkey], "$json\n" ) ) {
-				break;
-			} 
-			if ( $retry > 0 ) { 
-				error_log('[ERROR]'. __METHOD__."($this->pid) : write error", 4 );
-				error_log( "$json", 4 );
-				break;
-			} else {
-				$this->logfp{$fpkey} = fopen( $full_path, "a");
-				$retry++;
-			}
-		}
-		*/
 		if ( !fwrite( $this->logfp[$fpkey], "$json\n" ) ) {
 			return false;
 		} 
