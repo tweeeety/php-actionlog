@@ -80,18 +80,21 @@ fluentdのin_tailプラグインのpathに該当ログへのシンボリック�
 ###※1.ACLOG_LEVEL_LOCAL：ローカルの指定でローカルのみのとどまる仕組み
 
 * 出力されるログ  
-
 aclog.login.2014-05-14  
 
 * tailするログ(tailに指定しているpath)  
-
-ln -s aclog.login.2014-05-14 aclog.login.log 
+ln -s aclog.login.2014-05-14 aclog.login.log   
 の`aclog.login.log`  
 
 * cronで毎日0時0分にこんな感じのshをしかけている
-
+```
 var='action'
 ln -nfs ${ac_log_dir}/aclog.${var}.`date "+%Y-%m-%d"` ${slink_dir}/aclog.${var}.log
+```
+
+ってことで、ACLOG_LEVEL_LOCALを指定すると  
+ファイル名が`aclog.login.2014-05-14_noforward`となりtailするシンボリックリンクから外れる  
+といった強引な手を使ってます
 
 
 
