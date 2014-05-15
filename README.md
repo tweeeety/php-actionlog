@@ -32,6 +32,7 @@ require_once("lib/ActionLog/ActionLog.php");
 ###呼び出し
 メインはこんな感じです
 ```php
+require_once("lib/ActionLog/Conf.php");
 require_once("lib/ActionLog/ActionLog.php");
 $al = new ActionLog(Conf::$CONF);
 $al->put(
@@ -67,7 +68,7 @@ $al = new ActionLog(Conf::$CONF);
 
 ###ログ出しわけ  
 
-Conf::$Conf['setting']に設定した値に応じてログを出しわけします  
+Conf::$Conf['setting']の形で設定した値に応じてログを出しわけします  
 Conf::$Conf['setting']のkeyが、putする際に第一引数で渡している'func'の値に対応します  
 
 ###ログレベル  
