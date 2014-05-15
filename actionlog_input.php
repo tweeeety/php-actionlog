@@ -16,6 +16,7 @@ $users = array(
  * call action log only 
  */
 
+/*
 $al = new ActionLog(Conf::$CONF);
 $al->put(
 	array(
@@ -32,7 +33,7 @@ $al->put(
 
 
 $testHash = array( "hoge" => "1", "fuga" => "2");
-
+*/
 
 /*
 $this->al->put(
@@ -49,7 +50,7 @@ $this->al->put(
 
 //$testUser = new User($users['001']);
 
-return;
+/////////////////////////////////////////////////////////////////return;
 
 
 /* 

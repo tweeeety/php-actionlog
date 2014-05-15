@@ -24,7 +24,7 @@ final class Conf{
 			'logPath' => '/home/murata/tail-td-agent/aclog',
 			'logPrefix' => 'aclog',
 			'setting' => array(
-				1 => array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'login'),
+				1 => array( 'lv' => self::ACLOG_LEVEL_FOWARD, 'name' => 'login'),
 				2 => array( 'lv' => self::ACLOG_LEVEL_FOWARD, 'name' => 'point'),
 				3 => array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'payment')
 			)

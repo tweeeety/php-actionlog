@@ -8,11 +8,10 @@ class User {
 		{
 			$this->$key = $val;
 		}
-		$this->al = new ActionLog;
+		$this->al = new ActionLog(Conf::$CONF);
 		
-		var_dump("construct");
-		
-		var_dump(get_class_vars("Conf"));
+		//var_dump("construct");
+		//var_dump(get_class_vars("Conf"));
 		
 		
 	}

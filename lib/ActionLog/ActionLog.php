@@ -74,7 +74,7 @@ class ActionLog {
 	{
 		// config
 		$_CONF = $this->getConfig();
-	
+
 		// check setting 
 		if ( empty($info) || !is_array($info) || !array_key_exists( $info['func'], $_CONF['setting'] ) ) {
 			error_log( "[ERROR] invalid 'arguments' or 'configuration'", 4 );
