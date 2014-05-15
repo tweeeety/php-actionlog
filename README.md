@@ -121,8 +121,8 @@ ln -nfs ${ac_log_dir}/aclog.${var}.`date "+%Y-%m-%d"` ${slink_dir}/aclog.${var}.
 
 ってことで、ACLOG_LEVEL_LOCALを指定すると  
 ファイル名が`aclog.login.2014-05-14_noforward`となりtailするシンボリックリンクから外れる  
-といった強引な手を使ってます
 
+tail_exプラグインを使うことでもっとスマートにもできるかと思います
 
 
 
