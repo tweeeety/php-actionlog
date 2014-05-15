@@ -30,7 +30,6 @@ require_once("lib/ActionLog/ActionLog.php");
 ```
 
 ###呼び出し
-メインはこんな感じです
 ```php
 require_once("lib/ActionLog/Conf.php");
 require_once("lib/ActionLog/ActionLog.php");
@@ -60,8 +59,8 @@ aclog.login.2014-05-14
 
 ###config  
 
-`lib/ActionLog/Conf.php`はサンプルのconfigです。 
-定義の場所や形はなんでもよいので、インスタンス生成時にarrayの形で渡します
+`lib/ActionLog/Conf.php`はサンプルのconfigです。   
+定義の場所や形はなんでもよいので、インスタンス生成時にarrayの形で渡します  
 ```php
 $al = new ActionLog(Conf::$CONF);
 ```
@@ -69,19 +68,21 @@ $al = new ActionLog(Conf::$CONF);
 ###ログ出しわけ  
 
 Conf::$Conf['setting']の形で設定した値に応じてログを出しわけします  
-Conf::$Conf['setting']のkeyが、putする際に第一引数で渡している'func'の値に対応します  
+>putする際に第一引数で渡している'func'の値がConf::$Conf['setting']のkeyに対応するイメージ  
 
 ###ログレベル  
 
-fluentdのin_tailプラグインのpathに該当ログへのシンボリックリンクを指定することが前提です(後述※1)  
-詳細は[こちら(7.シンボリックリンクでの…トコ)](http://tweeeety.hateblo.jp/entry/20131213/1386899221)
+Conf::$Conf['setting']に指定したlvに応じて下記を出しわけます
 
->ACLOG_LEVEL_FOWARD：受信側までログを転送  
->ACLOG_LEVEL_LOCAL：ローカル(webサーバ)にのみテキスト出力※1  
 >ACLOG_LEVEL_IGNORE：なにもしない  
+>ACLOG_LEVEL_LOCAL：ローカル(webサーバ)にのみテキスト出力※1  
+>ACLOG_LEVEL_FOWARD：受信側までログを転送  
 
-###※1.ACLOG_LEVEL_LOCAL：ローカルの指定でローカルのみのとどまる仕組み
 
+###※1.について
+ACLOG_LEVEL_LOCAL指定でローカル出力のみになる仕組みについて補足です
+
+####例
 * 出力されるログ  
 aclog.login.2014-05-14  
 
@@ -99,14 +100,14 @@ ln -nfs ${ac_log_dir}/aclog.${var}.`date "+%Y-%m-%d"` ${slink_dir}/aclog.${var}.
 ファイル名が`aclog.login.2014-05-14_noforward`となりtailするシンボリックリンクから外れる  
 といった強引な手を使ってます
 
-####サンプルの使い方の場合
-`'func' => Conf::ACLOG_F_LOGIN,`という指定により  
-Conf::$Conf['setting']['1']を参照する。具体的なvalueはこちら
->`array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'login')`
 
-この場合、下記の情報を元にログファイルを出力します  
->ログレベル：self::ACLOG_LEVEL_FOWARD  
->ファイル名：action.login.YYYYMMDD  
+####サンプル場合の例
+
+* putで`'func' => Conf::ACLOG_F_LOGIN,`という指定
+* Conf::$Conf['setting']['1']を参照
+* 値の`array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'login')`により下記のログを出力
+    * name=loginより、出力するファイル名は`actionlog.login.2014-0514_forward
+    * lv=ACLOG_LEVEL_LOCALより、ローカルに出力するだけ
 
 
 
