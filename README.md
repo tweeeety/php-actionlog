@@ -70,6 +70,14 @@ aclog.login.2014-05-14
 {"info":{"uid":"test","func":1,"func_detail":1,"rid":"10f3d8d9ae622c1be4a56153bf6700ea","pid":28760,"hn":"is1.paq.to","ts":"2014-05-14 16:33:54"},"val":{"entry":"1999-01-01 10:00:00"}}
 ```
 
+###流れ～結果について軽く説明
+* putで`'func' => Conf::ACLOG_F_LOGIN,`という指定
+* Conf::$Conf['setting']['1']を参照
+* 値の`array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'login')`により下記のログを出力
+    * name=loginより、出力するファイル名は`actionlog.login.2014-0514_forward
+    * lv=ACLOG_LEVEL_LOCALより、ローカルに出力するだけ
+
+
 ##説明
 
 ###config  
@@ -116,13 +124,6 @@ ln -nfs ${ac_log_dir}/aclog.${var}.`date "+%Y-%m-%d"` ${slink_dir}/aclog.${var}.
 といった強引な手を使ってます
 
 
-####サンプル場合の例
-
-* putで`'func' => Conf::ACLOG_F_LOGIN,`という指定
-* Conf::$Conf['setting']['1']を参照
-* 値の`array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'login')`により下記のログを出力
-    * name=loginより、出力するファイル名は`actionlog.login.2014-0514_forward
-    * lv=ACLOG_LEVEL_LOCALより、ローカルに出力するだけ
 
 
 
