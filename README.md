@@ -3,6 +3,7 @@ php-actionlog
 このモジュールはaccessログよりフレキシブルなjsonログ出力を目的とした  
 td-agent(fluentd)の使用を前提とするphpモジュールサンプルです。  
 
+## 補足
 個人的にこんな感じでやりましたというイメージを伝えるためのものであり  
 サンプルのため、あまりコードのキレイさや信憑性はありません。  
 
@@ -10,33 +11,24 @@ READMEもささっと書いて適当なので時間があったらソースと�
 
 ##ログ出力イメージ
 
-□…webサーバ
-* ■…ログサーバ
-としてこのモジュールにフォーカスしたログ出力イメージを記します
+###よくあるこんな流れのログ出力を目的としています  
 
-・phpのwebアプリケーションから任意の場所にログを出力
-・td-agentでtailする
-・
+①webサーバのphpアプリケーションから任意の場所にjsonフォーマットでログを出力し  
+③td-agentでin_tailして受信サーバにout_forward  、  
+③受信サーバのtd-agentでin_forwardで受け取り、テキストやmongodbに蓄積  
 
-ログの制御をこんな感じで制御したいというイメージです
+このモジュールは①の際にアプリケーションから呼ばれます  
+ログの制御をこんな感じで制御したいというのが主な目的です
+* 1.何もしない  
+* 2.テキストログのみ出力(web側に)  
+* 3.fluentdでtailする(mongodbまで入れる)  
 
-
-
-このモジュールの目的は
-
-
-ログの制御をこんな感じで制御したいというイメージです
-
-* ①何もしない  
-* ②テキストログのみ出力(web側に)  
-* ③fluentdでtailする(mongodbまで入れる)  
-
-##導入
+##使い方
+###導入
 ```php
 require_once("lib/ActionLog/ActionLog.php");
 ```
 
-##使い方
 ###呼び出し
 メインはこんな感じです
 ```php
@@ -67,8 +59,8 @@ aclog.login.2014-05-14
 
 ###config  
 
-`lib/ActionLog/Conf.php`もサンプルのconfigです。  
-どこにどんな形で定義してあっても良いのでこんな感じでインスタンス生成時に渡します
+`lib/ActionLog/Conf.php`はサンプルのconfigです。 
+定義の場所や形はなんでもよいので、インスタンス生成時にarrayの形で渡します
 ```php
 $al = new ActionLog(Conf::$CONF);
 ```
@@ -77,14 +69,6 @@ $al = new ActionLog(Conf::$CONF);
 
 Conf::$Conf['setting']に設定した値に応じてログを出しわけします  
 Conf::$Conf['setting']のkeyが、putする際に第一引数で渡している'func'の値に対応します  
-上記の使い方例では  
-`'func' => Conf::ACLOG_F_LOGIN,`を指定しているので  
-Conf::$Conf['setting']['1']の`array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'login')`になります
-
-この場合下記の情報を元にログファイルを出力します  
-
->ログレベル：self::ACLOG_LEVEL_FOWARD  
->ファイル名：action.login.YYYYMMDD  
 
 ###ログレベル  
 
@@ -114,7 +98,14 @@ ln -nfs ${ac_log_dir}/aclog.${var}.`date "+%Y-%m-%d"` ${slink_dir}/aclog.${var}.
 ファイル名が`aclog.login.2014-05-14_noforward`となりtailするシンボリックリンクから外れる  
 といった強引な手を使ってます
 
+####サンプルの使い方の場合
+`'func' => Conf::ACLOG_F_LOGIN,`という指定により  
+Conf::$Conf['setting']['1']を参照する。具体的なvalueはこちら
+>`array( 'lv' => self::ACLOG_LEVEL_LOCAL, 'name' => 'login')`
 
+この場合、下記の情報を元にログファイルを出力します  
+>ログレベル：self::ACLOG_LEVEL_FOWARD  
+>ファイル名：action.login.YYYYMMDD  
 
 
 
