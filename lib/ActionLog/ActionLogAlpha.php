@@ -120,7 +120,7 @@ class ActionLog {
 		if ( !fwrite( $this->logfp[$fpkey], "$json\n" ) ) {
 			return false;
 		} 
-		return true;
+		reutrn true;
 	}
 	
 	/*

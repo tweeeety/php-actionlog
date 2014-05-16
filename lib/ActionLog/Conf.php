@@ -21,7 +21,7 @@ final class Conf{
 	
 	// Configuration
 	public static $CONF = array(
-			'logPath' => '/home/murata/tail-td-agent/aclog',
+			'logPath' => '/home/murata/tail-td-agent/project/aclog',
 			'logPrefix' => 'aclog',
 			'setting' => array(
 				1 => array( 'lv' => self::ACLOG_LEVEL_FOWARD, 'name' => 'login'),

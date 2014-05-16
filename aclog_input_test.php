@@ -4,19 +4,9 @@ require_once("lib/ActionLog/Conf.php");
 require_once("lib/ActionLog/ActionLog.php");
 require_once("lib/ActionLog/User.php");
 
-/* define user */
-$users = array(
-	'001' => array('uid' => '001', 'name' => 'hoge', 'entry' => '2014-05-11 10:00:00', 'point'=>0),
-	'002' => array('uid' => '002', 'name' => 'fuga', 'entry' => '2014-05-12 10:00:00', 'point'=>0),
-	'003' => array('uid' => '003', 'name' => 'piyo', 'entry' => '2014-05-13 10:00:00', 'point'=>0)
-);
-
-
 /* 
  * call action log only 
  */
-
-/*
 $al = new ActionLog(Conf::$CONF);
 $al->put(
 	array(
@@ -28,34 +18,19 @@ $al->put(
 		'entry' => '1999-01-01 10:00:00'
 	)
 );
-
-//$al->setLevel('AAA', 100);
-
-
 $testHash = array( "hoge" => "1", "fuga" => "2");
-*/
-
-/*
-$this->al->put(
-	array(
-		'uid' => $this->uid,
-		'func' => Conf::ACLOG_F_LOGIN,
-		'func_detail' => Conf::ACLOG_FD_LOGIN
-	),
-	array(
-		'entry' => $this->entry
-	)
-);
-*/
-
-//$testUser = new User($users['001']);
-
-/////////////////////////////////////////////////////////////////return;
 
 
 /* 
  * call action log from User Object
  */
+/* define user */
+$users = array(
+	'001' => array('uid' => '001', 'name' => 'hoge', 'entry' => '2014-05-11 10:00:00', 'point'=>0),
+	'002' => array('uid' => '002', 'name' => 'fuga', 'entry' => '2014-05-12 10:00:00', 'point'=>0),
+	'003' => array('uid' => '003', 'name' => 'piyo', 'entry' => '2014-05-13 10:00:00', 'point'=>0)
+);
+
 /* create user */
 $user = array();
 foreach ( $users as $id => $val )
